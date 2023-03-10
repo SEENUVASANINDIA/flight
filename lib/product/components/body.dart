@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:flight/constants.dart';
+import 'package:flight/components/constants.dart';
 import 'package:flight/models/product.dart';
 import 'package:flight/details/details_screen.dart';
 
-import 'package:flight/product/components/category_list.dart';
+
 import 'package:flight/product/components/product_card.dart';
-import 'package:flight/search_box.dart';
+import 'package:flight/components/search_box.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

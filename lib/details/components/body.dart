@@ -1,11 +1,10 @@
 // ignore_for_file: unused_import, unnecessary_string_escapes, prefer_const_constructors, sort_child_properties_last, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
-import 'package:flight/constants.dart';
+import 'package:flight/components/constants.dart';
 import 'package:flight/models/product.dart';
 
-import 'chat_and_add_to_cart.dart';
-import 'list_of_colors.dart';
+
 import 'product_image.dart';
 
 class Body extends StatelessWidget {

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flight/models/product.dart';
 
-import '../../../constants.dart';
+import '../../components/constants.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({
@@ -54,25 +54,7 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ),
             ),
-            // our product image
-            // Positioned(
-            //   top: 0,
-            //   right: 0,
-            //   child: Hero(
-            //     tag: '${widget.product.id}',
-            //     child: Container(
-            //       padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            //       height: 160,
-            //       // image is square but we add extra 20 + 20 padding thats why width is 200
-            //       width: 200,
-            //       child: Image.asset(
-            //         widget.product.image,
-            //         fit: BoxFit.cover,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Product title and price
+           
             Positioned(
               bottom: 0,
               left: 0,
