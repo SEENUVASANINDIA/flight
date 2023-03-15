@@ -1,9 +1,9 @@
 // ignore_for_file: unused_import, unnecessary_string_escapes, prefer_const_constructors, sort_child_properties_last, unnecessary_string_interpolations
 
+import 'package:flight/count/no_of_pasenger.dart';
 import 'package:flutter/material.dart';
 import 'package:flight/components/constants.dart';
 import 'package:flight/models/product.dart';
-
 
 import 'product_image.dart';
 
@@ -11,7 +11,9 @@ class Body extends StatelessWidget {
   final Product product;
 
   const Body({Key? key, required this.product}) : super(key: key);
+
   @override
+  
   Widget build(BuildContext context) {
     // it provide us total height and width
     Size size = MediaQuery.of(context).size;
@@ -108,7 +110,7 @@ class Body extends StatelessWidget {
                             // SizedBox(width: 20,),
 
                             SizedBox(
-                              width: 30,
+                              width: 60,
                             ),
 
                             Padding(
@@ -165,7 +167,15 @@ class Body extends StatelessWidget {
                           ],
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Count(
+ 
+
+                                    )));
+                          },
                           child: Text('Procceed'),
                           style: ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(

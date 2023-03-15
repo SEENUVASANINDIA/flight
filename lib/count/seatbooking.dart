@@ -1,0 +1,562 @@
+import 'package:book_my_seat/book_my_seat.dart';
+import 'package:flight/components/constants.dart';
+import 'package:flight/transaction/transaction.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class seatbook extends StatefulWidget {
+  const seatbook({Key? key}) : super(key: key);
+
+  @override
+  State<seatbook> createState() => seatbookState();
+}
+
+class seatbookState extends State<seatbook> {
+  Set<SeatNumber> selectedSeats = {};
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("select seat"),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        top: true,
+        bottom: true,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // const SizedBox(
+            //   height: 29,
+            // ),
+            
+            // const SizedBox(
+            //   height: 32,
+            // ),
+            Container(
+              // margin: EdgeInsets.symmetric(vertical: 70, horizontal: 13),
+              margin: EdgeInsets.fromLTRB(13, 30, 13, 0),
+              height: MediaQuery.of(context).size.height / 6,
+              width: MediaQuery.of(context).size.width / 1.04,
+              decoration: BoxDecoration(
+                  color: kBackgroundColor,
+                  borderRadius: BorderRadius.all(Radius.circular(50))),
+              child: Column(children: [
+                Text(
+                  "Family vacation",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: kDefaultPadding * 1, // 30 padding
+                        vertical: kDefaultPadding, // 5 top and bottom
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            // ignore: unnecessary_string_escapes
+                            "MCL",
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          Text(
+                            // ignore: unnecessary_string_escapes
+                            "jakartha",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: kDefaultPadding * 1, // 30 padding
+                        vertical: kDefaultPadding / 1.5, // 5 top and bottom
+                      ),
+                      child: Column(
+                        children: [
+                          const Icon(Icons.flight_land_rounded),
+                          Text(
+                            // ignore: unnecessary_string_escapes
+                            "2h 55m",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: kDefaultPadding * 1, // 30 padding
+                        vertical: kDefaultPadding, // 5 top and bottom
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            // ignore: unnecessary_string_escapes
+                            "NYC",
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          Text(
+                            // ignore: unnecessary_string_escapes
+                            "new york",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ]),
+            ),
+            const Text("Front of flight is this side"),
+            const SizedBox(
+              height: 30,
+            ),
+
+            Flexible(
+              child: SingleChildScrollView(
+                // scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: double.maxFinite,
+                  child: SeatLayoutWidget(
+                    onSeatStateChanged: (rowI, colI, seatState) {
+                      if (seatState == SeatState.selected) {
+                        selectedSeats.add(SeatNumber(rowI: rowI, colI: colI));
+                      } else {
+                        selectedSeats
+                            .remove(SeatNumber(rowI: rowI, colI: colI));
+                      }
+                    },
+                    stateModel: const SeatLayoutStateModel(
+                      rows: 10,
+                      cols: 12,
+                      seatSvgSize: 25,
+                      pathSelectedSeat: 'assets/icons/seat_selected.svg',
+                      pathDisabledSeat: 'assets/icons/seat_disabled.svg',
+                      pathSoldSeat: 'assets/icons/seat_sold.svg',
+                      pathUnSelectedSeat: 'assets/icons/seat_unselected.svg',
+                      currentSeatsState: [
+                        [
+                          SeatState.disabled,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.empty,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.sold,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                        ],
+                        [
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.empty,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                        ],
+                        [
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.empty,
+                          SeatState.sold,
+                          SeatState.sold,
+                          SeatState.sold,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                        ],
+                        [
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.empty,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                        ],
+                        [
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.empty,
+                          SeatState.unselected,
+                          SeatState.sold,
+                          SeatState.sold,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                        ],
+                        [
+                          SeatState.sold,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.empty,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                        ],
+                        [
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.empty,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                        ],
+                        [
+                          SeatState.sold,
+                          SeatState.sold,
+                          SeatState.unselected,
+                          SeatState.empty,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                        ],
+                        [
+                          SeatState.empty,
+                          SeatState.empty,
+                          SeatState.empty,
+                          SeatState.empty,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.sold,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                        ],
+                        [
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                          SeatState.sold,
+                          SeatState.sold,
+                          SeatState.sold,
+                          SeatState.unselected,
+                          SeatState.unselected,
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(19.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 15,
+                        height: 15,
+                        color: Colors.grey.shade700,
+                      ),
+                      const SizedBox(width: 2),
+                      const Text('Disabled')
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 15,
+                        height: 15,
+                        color: Colors.lightBlueAccent,
+                      ),
+                      const SizedBox(width: 2),
+                      const Text('Sold')
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 15,
+                        height: 15,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff0FFF50))),
+                      ),
+                      const SizedBox(width: 2),
+                      const Text('Available')
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 15,
+                        height: 15,
+                        color: const Color(0xff0FFF50),
+                      ),
+                      const SizedBox(width: 2),
+                      const Text('Selected by you')
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const transaction()));
+                });
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith(
+                    (states) => const Color(0xFFfc4c4e)),
+              ),
+              child: const Text('proceed/Show my selected seat numbers'),
+            ),
+            const SizedBox(height: 12),
+            Text(selectedSeats.join(" , "))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SeatNumber {
+  final int rowI;
+  final int colI;
+
+  const SeatNumber({required this.rowI, required this.colI});
+
+  @override
+  bool operator ==(Object other) {
+    return rowI == (other as SeatNumber).rowI && colI == other.colI;
+  }
+
+  @override
+  int get hashCode => rowI.hashCode;
+
+  @override
+  String toString() {
+    return '[$rowI][$colI]';
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import 'package:flutter/material.dart';
+// import 'package:flight/components/constants.dart';
+// import 'package:book_my_seat/book_my_seat.dart';
+
+// class seatbook extends StatefulWidget {
+//   const seatbook({super.key});
+
+//   @override
+//   State<seatbook> createState() => _seatbookState();
+// }
+
+// class _seatbookState extends State<seatbook> {
+//    Set<SeatNumber> selectedSeats = {};
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("select seat"),
+//       ),
+//       body: Center(
+//         child: Column(
+//           children: [
+//             Container(
+//               // margin: EdgeInsets.symmetric(vertical: 70, horizontal: 13),
+//               margin: EdgeInsets.fromLTRB(13, 70, 13, 5),
+//               height: MediaQuery.of(context).size.height / 6,
+//               width: MediaQuery.of(context).size.width / 1.04,
+//               decoration: BoxDecoration(
+//                   color: kBackgroundColor,
+//                   borderRadius: BorderRadius.all(Radius.circular(50))),
+//               child: Column(children: [
+//                 Text(
+//                   "Family vacation",
+//                   style: Theme.of(context).textTheme.headlineSmall,
+//                 ),
+//                 Row(
+//                   children: [
+//                     Container(
+//                       padding: const EdgeInsets.symmetric(
+//                         horizontal: kDefaultPadding * 1, // 30 padding
+//                         vertical: kDefaultPadding, // 5 top and bottom
+//                       ),
+//                       child: Column(
+//                         children: [
+//                           Text(
+//                             // ignore: unnecessary_string_escapes
+//                             "MCL",
+//                             style: Theme.of(context).textTheme.headlineSmall,
+//                           ),
+//                           Text(
+//                             // ignore: unnecessary_string_escapes
+//                             "jakartha",
+//                             style: Theme.of(context).textTheme.titleMedium,
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     Container(
+//                       padding: const EdgeInsets.symmetric(
+//                         horizontal: kDefaultPadding * 1, // 30 padding
+//                         vertical: kDefaultPadding / 1.5, // 5 top and bottom
+//                       ),
+//                       child: Column(
+//                         children: [
+//                           const Icon(Icons.flight_land_rounded),
+//                           Text(
+//                             // ignore: unnecessary_string_escapes
+//                             "2h 55m",
+//                             style: Theme.of(context).textTheme.titleMedium,
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     Container(
+//                       padding: const EdgeInsets.symmetric(
+//                         horizontal: kDefaultPadding * 1, // 30 padding
+//                         vertical: kDefaultPadding, // 5 top and bottom
+//                       ),
+//                       child: Column(
+//                         children: [
+//                           Text(
+//                             // ignore: unnecessary_string_escapes
+//                             "NYC",
+//                             style: Theme.of(context).textTheme.headlineSmall,
+//                           ),
+//                           Text(
+//                             // ignore: unnecessary_string_escapes
+//                             "new york",
+//                             style: Theme.of(context).textTheme.titleMedium,
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ]),
+//             ),
+//             Container(
+//               //  margin: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+//               margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+//               height: MediaQuery.of(context).size.height / 1.57,
+//               width: MediaQuery.of(context).size.width / 1.04,
+//               decoration: BoxDecoration(
+//                   color: kBackgroundColor,
+//                   borderRadius: BorderRadius.all(Radius.circular(50))),
+//                   child: SingleChildScrollView(
+//                     child: SeatLayoutWidget( onSeatStateChanged: (rowI, colI, seatState) {
+//                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
+//                     ScaffoldMessenger.of(context).showSnackBar(
+//                       SnackBar(
+//                         content: seatState == SeatState.selected
+//                             ? Text("Selected Seat[$rowI][$colI]")
+//                             : Text("De-selected Seat[$rowI][$colI]"),
+//                       ),
+//                     );
+//                     if (seatState == SeatState.selected) {
+//                       selectedSeats.add(SeatNumber(rowI: rowI, colI: colI));
+//                     } else {
+//                       selectedSeats.remove(SeatNumber(rowI: rowI, colI: colI));
+//                     }
+//                   },stateModel: const SeatLayoutStateModel(
+//                     pathDisabledSeat: 'assets/svg_disabled_bus_seat.svg',
+//                     pathSelectedSeat: 'assets/svg_selected_bus_seats.svg',
+//                     pathSoldSeat: 'assets/svg_sold_bus_seat.svg',
+//                     pathUnSelectedSeat: 'assets/svg_unselected_bus_seat.svg',
+//                     rows: 2,
+//                     cols: 3,
+//                     seatSvgSize: 10,currentSeatsState: []),),
+//                   ),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class SeatNumber {
+//   final int rowI;
+//   final int colI;
+
+//   const SeatNumber({required this.rowI, required this.colI});
+
+//   @override
+//   bool operator ==(Object other) {
+//     return rowI == (other as SeatNumber).rowI && colI == (other as SeatNumber).colI;
+//   }
+
+//   @override
+//   int get hashCode => rowI.hashCode;
+
+//   @override
+//   String toString() {
+//     return '[$rowI][$colI]';
+//   }
+// }
