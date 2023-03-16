@@ -1,6 +1,6 @@
-// ignore_for_file: unused_import, unnecessary_string_escapes, prefer_const_constructors, sort_child_properties_last, unnecessary_string_interpolations
+// ignore_for_file: unused_import, unnecessary_string_escapes, prefer_const_constructors, sort_child_properties_last, unnecessary_string_interpolations, deprecated_member_use
 
-import 'package:flight/count/no_of_pasenger.dart';
+import 'package:flight/count_trans/no_of_pasenger.dart';
 import 'package:flutter/material.dart';
 import 'package:flight/components/constants.dart';
 import 'package:flight/models/product.dart';

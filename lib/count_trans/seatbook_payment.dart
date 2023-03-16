@@ -1,9 +1,12 @@
+// ignore_for_file: prefer_const_constructors, camel_case_types
+
 import 'package:book_my_seat/book_my_seat.dart';
+import 'package:flight/boardingpass/boardingscreen.dart';
 import 'package:flight/components/constants.dart';
-import 'package:flight/transaction/transaction.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flight/transaction/transaction.dart';
+
+
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -177,9 +180,10 @@ class seatbookState extends State<seatbook> {
             Flexible(
               child: SingleChildScrollView(
                 // scrollDirection: Axis.horizontal,
-                child: SizedBox(
+                child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: double.maxFinite,
+                  margin: EdgeInsets.fromLTRB(30, 0, 0,0),
                   child: SeatLayoutWidget(
                     onSeatStateChanged: (rowI, colI, seatState) {
                       if (seatState == SeatState.selected) {
@@ -412,7 +416,7 @@ class seatbookState extends State<seatbook> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const transaction()));
+                          builder: (context) => const Boardingpass()));
                 });
               },
               style: ButtonStyle(

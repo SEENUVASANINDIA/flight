@@ -4,15 +4,26 @@ import 'package:flutter/material.dart';
 import '../components/constants.dart';
 
 class SearchBox extends StatelessWidget {
-  const SearchBox({
+  // var hinttext;
+
+  
+
+  
+
+  
+
+   const SearchBox({
     Key? key,
     required this.onChanged,
+    required this.hinttext,
   }) : super(key: key);
 
   final ValueChanged onChanged;
+  final String hinttext;
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       margin: const EdgeInsets.all(kDefaultPadding),
       padding: const EdgeInsets.symmetric(
@@ -31,7 +42,7 @@ class SearchBox extends StatelessWidget {
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           icon: const Icon(Icons.search),
-          hintText: 'Search',
+          hintText: hinttext,
           hintStyle: const TextStyle(color: Colors.white),
         ),
       ),

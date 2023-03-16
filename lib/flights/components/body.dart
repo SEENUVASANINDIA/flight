@@ -1,14 +1,14 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 
+import 'package:flight/flights/components/product_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flight/components/constants.dart';
 import 'package:flight/models/product.dart';
 import 'package:flight/details/details_screen.dart';
 
-
-import 'package:flight/product/components/product_card.dart';
 import 'package:flight/components/search_box.dart';
+
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,10 +16,11 @@ class Body extends StatelessWidget {
       bottom: false,
       child: Column(
         children: <Widget>[
-
 /* search box */
 
-          SearchBox(onChanged: (value) {}),
+          SearchBox(onChanged: (value) {},hinttext:"from"),
+SizedBox(height: 10,),
+          SearchBox(onChanged: (value) {},hinttext:"to"),
 
           /* category list  */
 
@@ -42,10 +43,7 @@ class Body extends StatelessWidget {
                 ListView.builder(
                   // here we use our demo procuts list
                   itemCount: products.length,
-                  
-                  
-                  
-                  
+
                   itemBuilder: (context, index) => ProductCard(
                     itemIndex: index,
                     product: products[index],
@@ -54,7 +52,7 @@ class Body extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => DetailsScreen(
-                            product: products[index], 
+                            product: products[index],
                           ),
                         ),
                       );

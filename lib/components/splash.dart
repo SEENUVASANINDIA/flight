@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flight/product/products_screen.dart';
+import 'package:flight/flights/products_screen.dart';
 // import 'package:flight/saple.dart';
 import 'package:flutter/material.dart';
 class MyApp extends StatefulWidget {

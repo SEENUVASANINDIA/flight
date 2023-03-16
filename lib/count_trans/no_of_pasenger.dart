@@ -1,7 +1,7 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_local_variable, non_constant_identifier_names, sort_child_properties_last
 
-import 'package:flight/count/seatbooking.dart';
-import 'package:flight/models/product.dart';
+import 'package:flight/count_trans/seatbook_payment.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flight/components/constants.dart';
 

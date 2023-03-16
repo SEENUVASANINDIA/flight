@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
+// ignore_for_file: prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flight/models/product.dart';
